@@ -70,6 +70,7 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
     [self jsq_addObservers];
 
     self.contentView.leftBarButtonItem = [JSQMessagesToolbarButtonFactory defaultAccessoryButtonItem];
+    self.contentView.leftSecondaryBarButtonItem = [JSQMessagesToolbarButtonFactory emoticonsKeyboardButtonItem];
     self.contentView.rightBarButtonItem = [JSQMessagesToolbarButtonFactory defaultSendButtonItem];
 
     [self toggleSendButtonEnabled];
@@ -102,6 +103,11 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
 - (void)jsq_leftBarButtonPressed:(UIButton *)sender
 {
     [self.delegate messagesInputToolbar:self didPressLeftBarButton:sender];
+}
+
+- (void)jsq_leftSecondaryBarButtonPressed:(UIButton *)sender
+{
+    [self.delegate messagesInputToolbar:self didPressLeftSecondaryBarButtonItem:sender];
 }
 
 - (void)jsq_rightBarButtonPressed:(UIButton *)sender
@@ -150,7 +156,16 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
                                                         action:@selector(jsq_rightBarButtonPressed:)
                                               forControlEvents:UIControlEventTouchUpInside];
             }
-
+            else if ([keyPath isEqualToString:NSStringFromSelector(@selector(leftSecondaryBarButtonItem))]) {
+                [self.contentView.leftSecondaryBarButtonItem removeTarget:self
+                                                                   action:NULL
+                                                         forControlEvents:UIControlEventTouchUpInside];
+                
+                [self.contentView.leftSecondaryBarButtonItem addTarget:self
+                                                                action:@selector(jsq_leftSecondaryBarButtonPressed:)
+                                                      forControlEvents:UIControlEventTouchUpInside];
+            }
+            
             [self toggleSendButtonEnabled];
         }
     }
@@ -171,6 +186,11 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
                        forKeyPath:NSStringFromSelector(@selector(rightBarButtonItem))
                           options:0
                           context:kJSQMessagesInputToolbarKeyValueObservingContext];
+    
+    [self.contentView addObserver:self
+                       forKeyPath:NSStringFromSelector(@selector(leftSecondaryBarButtonItem))
+                          options:0
+                          context:kJSQMessagesInputToolbarKeyValueObservingContext];
 
     self.jsq_isObserving = YES;
 }
@@ -188,6 +208,10 @@ static void * kJSQMessagesInputToolbarKeyValueObservingContext = &kJSQMessagesIn
 
         [_contentView removeObserver:self
                           forKeyPath:NSStringFromSelector(@selector(rightBarButtonItem))
+                             context:kJSQMessagesInputToolbarKeyValueObservingContext];
+        
+        [_contentView removeObserver:self
+                          forKeyPath:NSStringFromSelector(@selector(leftSecondaryBarButtonItem))
                              context:kJSQMessagesInputToolbarKeyValueObservingContext];
     }
     @catch (NSException *__unused exception) { }

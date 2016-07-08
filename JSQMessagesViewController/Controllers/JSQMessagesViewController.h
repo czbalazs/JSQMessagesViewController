@@ -221,6 +221,20 @@
 - (void)didPressAccessoryButton:(UIButton *)sender;
 
 /**
+ *  This method is called when the user taps the emoticon button on the `inputToolbar`.
+ *
+ *  @param sender The accessory button that was pressed by the user.
+*/
+
+- (void)didPressLeftSecondaryBarButtonItem:(UIButton *)sender;
+
+/**
+ *  Moves the messages to the given position.
+*/
+
+- (void)moveMessagesToTop:(CGFloat)top bottom:(CGFloat)bottom;
+
+/**
  *  Animates the sending of a new message. See `finishSendingMessageAnimated:` for more details.
  *
  *  @see `finishSendingMessageAnimated:`.

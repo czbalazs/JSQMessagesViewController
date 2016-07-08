@@ -50,6 +50,16 @@
 - (void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar
        didPressLeftBarButton:(UIButton *)sender;
 
+/**
+ *  Tells the delegate that the toolbar's `leftSecondaryBarButtonItem` has been pressed.
+ *
+ *  @param toolbar The object representing the toolbar sending this information.
+ *  @param sender  The button that received the touch event.
+ */
+
+- (void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar
+didPressLeftSecondaryBarButtonItem:(UIButton *)sender;
+
 @end
 
 

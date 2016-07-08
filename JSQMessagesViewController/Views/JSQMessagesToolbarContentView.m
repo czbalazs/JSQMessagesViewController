@@ -36,8 +36,9 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftHorizontalSpacingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightHorizontalSpacingConstraint;
 
-@end
+@property (weak, nonatomic) IBOutlet UIView *leftSecondaryBarButtonContainerView;
 
+@end
 
 
 @implementation JSQMessagesToolbarContentView
@@ -154,6 +155,32 @@ const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingDefault = 8.0f;
 {
     self.rightBarButtonContainerViewWidthConstraint.constant = rightBarButtonItemWidth;
     [self setNeedsUpdateConstraints];
+}
+
+- (void)setLeftSecondaryBarButtonItem:(UIButton *)leftSecondaryBarButtonItem
+{
+    if (_leftSecondaryBarButtonItem) {
+        [_leftSecondaryBarButtonItem removeFromSuperview];
+    }
+    
+    if (!leftSecondaryBarButtonItem) {
+        _leftSecondaryBarButtonItem = nil;
+        self.leftSecondaryBarButtonItem.hidden = YES;
+        return;
+    }
+    
+    if (CGRectEqualToRect(leftSecondaryBarButtonItem.frame, CGRectZero)) {
+        leftSecondaryBarButtonItem.frame = self.leftSecondaryBarButtonContainerView.bounds;
+    }
+    
+    self.leftSecondaryBarButtonContainerView.hidden = NO;
+    [leftSecondaryBarButtonItem setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    [self.leftSecondaryBarButtonContainerView addSubview:leftSecondaryBarButtonItem];
+    [self.leftSecondaryBarButtonContainerView jsq_pinAllEdgesOfSubview:leftSecondaryBarButtonItem];
+    [self setNeedsUpdateConstraints];
+    
+    _leftSecondaryBarButtonItem = leftSecondaryBarButtonItem;
 }
 
 - (void)setRightContentPadding:(CGFloat)rightContentPadding

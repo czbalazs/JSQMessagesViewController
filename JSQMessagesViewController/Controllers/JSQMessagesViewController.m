@@ -343,6 +343,19 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
 }
 
+- (void)didPressLeftSecondaryBarButtonItem:(UIButton *)sender
+{
+    NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
+}
+
+- (void)moveMessagesToTop:(CGFloat)top bottom:(CGFloat)bottom {
+    [self jsq_setCollectionViewInsetsTopValue:top bottomValue:bottom];
+    NSInteger section = [self numberOfSectionsInCollectionView:self.collectionView] - 1;
+    NSInteger item = [self collectionView:self.collectionView numberOfItemsInSection:section] - 1;
+    NSIndexPath *lastIndexPath = [NSIndexPath indexPathForItem:item inSection:section];
+    [self.collectionView scrollToItemAtIndexPath:lastIndexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:YES];
+}
+
 - (void)finishSendingMessage
 {
     [self finishSendingMessageAnimated:YES];
@@ -709,6 +722,11 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     else {
         [self didPressAccessoryButton:sender];
     }
+}
+
+- (void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressLeftSecondaryBarButtonItem:(UIButton *)sender
+{
+    [self didPressLeftSecondaryBarButtonItem:sender];
 }
 
 - (NSString *)jsq_currentlyComposedMessageText

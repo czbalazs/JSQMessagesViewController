@@ -67,6 +67,13 @@
 + (UIImage *)jsq_defaultAccessoryImage;
 
 /**
+ *  @return The input toolbar emoticon image.
+
+ */
+
++ (UIImage *)jsq_emoticonImage;
+
+/**
  *  @return The default typing indicator image.
  */
 + (UIImage *)jsq_defaultTypingIndicatorImage;

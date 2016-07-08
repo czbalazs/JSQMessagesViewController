@@ -42,6 +42,23 @@
     return accessoryButton;
 }
 
++ (UIButton *)emoticonsKeyboardButtonItem
+{
+    UIImage *accessoryImage = [UIImage jsq_emoticonImage];
+    UIImage *normalImage = [accessoryImage jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
+    UIImage *highlightedImage = [accessoryImage jsq_imageMaskedWithColor:[UIColor darkGrayColor]];
+    
+    UIButton *accessoryButton = [[UIButton alloc] initWithFrame:CGRectMake(40.0f, 0.0f, accessoryImage.size.width, 32.0f)];
+    [accessoryButton setImage:normalImage forState:UIControlStateNormal];
+    [accessoryButton setImage:highlightedImage forState:UIControlStateHighlighted];
+    
+    accessoryButton.contentMode = UIViewContentModeScaleAspectFit;
+    accessoryButton.backgroundColor = [UIColor clearColor];
+    accessoryButton.tintColor = [UIColor lightGrayColor];
+    
+    return accessoryButton;
+}
+
 + (UIButton *)defaultSendButtonItem
 {
     NSString *sendTitle = [NSBundle jsq_localizedStringForKey:@"send"];

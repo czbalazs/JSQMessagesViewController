@@ -94,6 +94,10 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
  */
 @property (assign, nonatomic) CGFloat rightBarButtonItemWidth;
 
+// CZB: RightBarButtonItemSecondary
+
+@property (weak, nonatomic) UIButton *leftSecondaryBarButtonItem;
+
 /**
  *  Specifies the amount of spacing between the content view and the trailing edge of rightBarButtonItem.
  *
@@ -110,6 +114,12 @@ FOUNDATION_EXPORT const CGFloat kJSQMessagesToolbarContentViewHorizontalSpacingD
  *  in your `JSQMessagesViewController` subclass.
  */
 @property (weak, nonatomic, readonly) UIView *rightBarButtonContainerView;
+
+/**
+ *  The container view for the rightBarSecondaryButtonItem.
+*/
+
+@property (weak, nonatomic, readonly) UIView *leftBarSecondaryButtonContainerView;
 
 #pragma mark - Class methods
 
