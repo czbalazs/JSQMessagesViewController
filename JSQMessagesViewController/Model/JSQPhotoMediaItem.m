@@ -81,7 +81,7 @@
         CGSize size = [self mediaViewDisplaySize];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
         imageView.clipsToBounds = NO;
-        imageView.contentMode = self.appliesMediaViewMaskAsOutgoing ? UIViewContentModeRight : UIViewContentModeLeft;
+        imageView.contentMode = self.appliesMediaViewMaskAsOutgoing ? UIViewContentModeBottomRight : UIViewContentModeBottomLeft;
         CGFloat mediaItemOffset = self.appliesMediaViewMaskAsOutgoing ? 10 : -30;
         imageView.frame = CGRectMake(mediaItemOffset, 0.0f, size.width + mediaItemOffset, size.height);
         
